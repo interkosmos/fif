@@ -1,4 +1,4 @@
-      DIMENSION A(100)
+      DIMENSION A(10)
  1    FORMAT (I3/(F6.3))
       READ 1 N, (A(J), J = 1,N)
       SUM = 0.0
@@ -12,5 +12,3 @@
  5    CONTINUE
  6    FORMAT (3HHi F6.3)
       PRINT 6 SUM / N
-
-
