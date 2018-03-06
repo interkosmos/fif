@@ -1,6 +1,6 @@
 # fif
 Fortran in Fortran: A Fortran 57 transpiler, written in Fortran 2008. Translates
-Fortran 57 code to ANSI C, then calls GCC to compile it. Please see the
+Fortran 57 code to ANSI C, then calls Clang to compile it. Please see the
 [lecture on nostalgic programming in Fortran](http://www.contrib.andrew.cmu.edu/~wmaynes/lect/lecture01.pdf)
 for further information.
 
