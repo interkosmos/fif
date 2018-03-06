@@ -454,7 +454,7 @@ program compiler
             end if
 
             buf = buf(j + 1:)
-            j = index(buf, ", ")
+            j = index(buf, ",")
 
             if (j < 1) then
                 print *, "Syntax Error: Missing limit in DO"
@@ -465,7 +465,7 @@ program compiler
             min = buf(:j - 1)
             buf = buf(j + 1:)
             call trimw(buf, tbuf)
-            j = index(tbuf, ", ")
+            j = index(tbuf, ",")
 
             if (j ==  0) then
                 max = tbuf
@@ -583,7 +583,7 @@ program compiler
             logical,          intent(out)   :: is_big
             integer                         :: i, j
 
-            i = index(line, ", ")
+            i = index(line, ",")
             j = index(line, "(")
 
             if (j > 0 .and. (i < 1 .or. j < i)) then
@@ -593,12 +593,12 @@ program compiler
                 j = match_paren(line)
                 next = line(:j)
                 line = line(j + 1:)
-                i = index(line, ", ")
+                i = index(line, ",")
                 line = line(i + 1:)
             else
                 is_big = .false.
                 i = scan(line, "ABCDEFGHIJKLMNOPQRTSUVWXYZ")
-                j = scan(line, ", ")
+                j = scan(line, ",")
 
                 if (j == 0) then
                     j = len(line) + 1
@@ -655,7 +655,7 @@ program compiler
                             nvars = nvars + insert(nvars, vars, tnext)
                         else
                             k = scan(next, "=", .true.)
-                            j = scan(next(:k - 1), ", ", .true.)
+                            j = scan(next(:k - 1), ",", .true.)
                             nvars = nvars + insert(nvars, vars, next(j + 1:k - 1))
                         end if
                     end do
@@ -804,7 +804,7 @@ program compiler
 
                         if (is_prim(out)) then
                             start = "("
-                            sep = ", "
+                            sep = ","
                             done = ")"
                         else
                             start = "["
@@ -887,12 +887,12 @@ program compiler
 
         recursive subroutine gen_io(is_input, fmt, line)
             implicit none
-            logical                 :: is_input
-            character(len=*)        :: fmt, line
-            character(len=max_id)   :: min, max, inc, id
-            character(len=max_id*4) :: bounds
-            character(len=1024)     :: exp_buf, in_buf
-            integer                 :: uout = 1, j, k, m, n
+            logical                   :: is_input
+            character(len=*)          :: fmt, line
+            character(len=max_id)     :: min, max, inc, id
+            character(len=max_id * 4) :: bounds
+            character(len=1024)       :: exp_buf, in_buf
+            integer                   :: uout = 1, j, k, m, n
             do
                 call trimw(line, line)
 
@@ -900,7 +900,7 @@ program compiler
                     exit
                 end if
 
-                j = match_char(line, ", ")
+                j = match_char(line, ",")
 
                 if (j == 0) then
                     j= len(line) + 1
@@ -912,21 +912,21 @@ program compiler
                     j = match_paren(line)
 
                     k = scan(line(1:j), "=", .true.)
-                    m = scan(line(1:k), ", ", .true.)
+                    m = scan(line(1:k), ",", .true.)
 
                     bounds = line(k + 1:j - 1)
                     in_buf = line(2:m - 1)
                     id = line(m + 1:k - 1)
 
-                    j = index(bounds, ", ")
+                    j = index(bounds, ",")
                     min = bounds(1:j - 1)
                     bounds = bounds(j + 1:)
 
-                    if (index(bounds, ", ") < 1) then
+                    if (index(bounds, ",") < 1) then
                         max = bounds
                         inc = "1"
                     else
-                        j = index(bounds, ", ")
+                        j = index(bounds, ",")
                         max = bounds(2:j - 1)
                         bounds = bounds(j + 1:)
                         inc=bounds
@@ -1015,7 +1015,7 @@ program compiler
                 id = dims(i)(:j - 1)
                 dim_str = dims(i)(j + 1:k - 1)
 
-                call replace_char(dim_str, ", ", "+1][")
+                call replace_char(dim_str, ",", "+1][")
 
                 if (is_int(id)) then
                     write (uout, "(a,a,a,a,a)") "int ", trim(id), "[", trim(dim_str), "+1];"
@@ -1187,12 +1187,12 @@ program compiler
 
                         j = scan(line, " ,)")
 
-                        if (index(line, ", ") < 1 ) then
+                        if (index(line, ",") < 1 ) then
                             write (uout, "(a,a,a,a,a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
                             exit
                         else
                             write (uout, "(a,a,a,a,a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
-                            line = line(index(line, ", ") + 1:)
+                            line = line(index(line, ",") + 1:)
                         end if
                     end do
 
@@ -1218,12 +1218,12 @@ program compiler
 
                         call trimw(tbuf, tbuf)
 
-                        if (index(line, ", ") < 1 ) then
+                        if (index(line, ",") < 1 ) then
                             write (uout, "(a,a,a,a,a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
                             exit
                         else
                             write (uout, "(a,a,a,a,a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
-                            line = line(index(line, ", ") + 1:)
+                            line = line(index(line, ",") + 1:)
                         end if
 
                         k = k + 1
@@ -1239,9 +1239,9 @@ program compiler
                     exp_buf = ""
 
                     call parse_exp(line(index(line, "=") + 1:), exp_buf)
-                    call replace_char(id, ", ", "][")
-                    call replace_char(id, "(", "[")
-                    call replace_char(id, ")", "]")
+                    call replace_char(id, ",", "][")
+                    call replace_char(id, "(","[")
+                    call replace_char(id, ")","]")
 
                     write (uout, "(a,a,a,a)") trim(id), " = ", trim(exp_buf), ";"
                 else if (type == stmt_if) then
@@ -1264,12 +1264,12 @@ program compiler
 
                     line = line(j + 1:)
 
-                    j = index(line, ", ")
+                    j = index(line, ",")
 
                     less = line(:j - 1)
                     line = line(j + 1:)
 
-                    j = index(line, ", ")
+                    j = index(line, ",")
 
                     equal = line(:j - 1)
                     greater = line(j + 1:)
