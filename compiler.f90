@@ -1018,9 +1018,9 @@ program compiler
                 call replace_char(dim_str, ",", "+1][")
 
                 if (is_int(id)) then
-                    write (uout, "(a,a,a,a,a)") "int ", trim(id), "[", trim(dim_str), "+1];"
+                    write (uout, "(5a)") "int ", trim(id), "[", trim(dim_str), "+1];"
                 else
-                    write (uout, "(a,a,a,a,a)") "float ", trim(id), "[", trim(dim_str), "+1];"
+                    write (uout, "(5a)") "float ", trim(id), "[", trim(dim_str), "+1];"
                 end if
             end do
 
@@ -1139,7 +1139,7 @@ program compiler
 
                 if (type == stmt_do) then
                     call parse_do(lines(i), target, id, min, max, inc)
-                    write (uout, "(a,a,a,a,a,a,a,a,a,a,a,a,a)") "for(", trim(id), "=", trim(min), ";", trim(id), "<=", trim(max), ";", trim(id), "+=", trim(inc), "){"
+                    write (uout, "(13a)") "for(", trim(id), "=", trim(min), ";", trim(id), "<=", trim(max), ";", trim(id), "+=", trim(inc), "){"
                 else if (type == stmt_stop) then
                     write (uout, "(a)") "exit(0);"
                 else if (type == stmt_assign) then
@@ -1188,10 +1188,10 @@ program compiler
                         j = scan(line, " ,)")
 
                         if (index(line, ",") < 1 ) then
-                            write (uout, "(a,a,a,a,a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
+                            write (uout, "(5a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
                             exit
                         else
-                            write (uout, "(a,a,a,a,a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
+                            write (uout, "(5a)") "case ", trim(line(:j - 1)), ": goto L", trim(line(:j - 1)), ";"
                             line = line(index(line, ",") + 1:)
                         end if
                     end do
@@ -1219,10 +1219,10 @@ program compiler
                         call trimw(tbuf, tbuf)
 
                         if (index(line, ",") < 1 ) then
-                            write (uout, "(a,a,a,a,a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
+                            write (uout, "(5a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
                             exit
                         else
-                            write (uout, "(a,a,a,a,a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
+                            write (uout, "(5a)") "case ", trim(tbuf), ": goto L", trim(line(:j - 1)), ";"
                             line = line(index(line, ",") + 1:)
                         end if
 
@@ -1430,6 +1430,6 @@ program compiler
 
             !call print_lines(nlines, lines)
             call code_gen(output, nvars, vars, ndims, dims, do_table, nstatements, statements, nlines, lines)
-            call system("gcc " // trim(output) // ".c runtime.c -o " // trim(output) // " -g -lm")
+            call system("clang " // trim(output) // ".c runtime.c -o " // trim(output) // " -g -lm")
         end subroutine main
 end program compiler
