@@ -29,4 +29,4 @@ build it. You can change the used C compiler in `compiler.f90` (line 1433).
 The default is `clang`.
 
 ## Copyright
-Copyright (c) 2018, Brandon Bohrer. Licenced under MIT.
+Copyright © 2018, Brandon Bohrer. Licenced under MIT.
