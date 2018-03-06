@@ -2,7 +2,7 @@ FC  = flang
 SRC = compiler.f90
 BIN = compiler
 
-all: $(BIN)
+all: compiler
 
 compiler: $(SRC)
 	$(FC) -o $(BIN) $(SRC)
