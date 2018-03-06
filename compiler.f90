@@ -1339,7 +1339,7 @@ program compiler
                         write (uout, "(a)") "fmt_tmp = f" // trim(line) // ";"
                         write (uout, "(a)") "nullary_out(&f" // trim(line) // ");"
                         write (uout, "(a)") "f" // trim(line) // " = fmt_tmp;"
-                        write (uout, "(a)") 'printf("\n");'
+                        write (uout, "(a)") 'printf("\\n");'
                     else
                         line = line(k:)
 
@@ -1348,7 +1348,7 @@ program compiler
                         call gen_io(.false., tbuf, line)
 
                         write (uout, "(a)") "f" // trim(tbuf) // " = fmt_tmp;"
-                        write (uout, "(a)") 'printf("\n");'
+                        write (uout, "(a)") 'printf("\\n");'
                     end if
                 else if (type == stmt_read) then
                     line = lines(i)(index(lines(i), "READ") + 4:)
