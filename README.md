@@ -1,6 +1,6 @@
 # fif
-Fortran in Fortran: A Fortran 57 transpiler, written in Fortran 2008. Translates
-Fortran 57 code to ANSI C, then calls Clang to compile it. Please see the
+Fortran in Fortran: A FORTRAN I transpiler, written in Fortran 2008. Translates
+FORTRAN I code to ANSI C, then calls Clang to compile it. Please see the
 [lecture on nostalgic programming in Fortran](http://www.contrib.andrew.cmu.edu/~wmaynes/lect/lecture01.pdf)
 for further information.
 
@@ -16,7 +16,7 @@ $ flang -o compiler compiler.f90
 At the moment, GNU Fortran is not supported.
 
 ## Compile
-Compile your Fortran 57 code with:
+Compile your FORTRAN I code with:
 ```
 $ ./compiler <input> <output>
 ```
