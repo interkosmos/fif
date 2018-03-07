@@ -2,7 +2,9 @@
 Fortran in Fortran: A FORTRAN I transpiler, written in Fortran 2008. Translates
 FORTRAN I code to ANSI C, then calls Clang to compile it. Please see the
 [lecture on nostalgic programming in Fortran](http://www.contrib.andrew.cmu.edu/~wmaynes/lect/lecture01.pdf)
-for further information.
+for further information. The details of the language are specified in the
+[Programmer’s Reference Manual](https://www.fortran.com/FortranForTheIBM704.pdf)
+from 1956.
 
 ## Build
 Use the Makefile to build the transpiler:
