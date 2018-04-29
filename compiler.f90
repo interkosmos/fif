@@ -11,7 +11,6 @@ program compiler
     call main()
 
     contains
-
         integer function insert(len, arr, elem)
             implicit none
             integer,                        intent(in)    :: len
@@ -82,9 +81,9 @@ program compiler
 
         subroutine rep_char(c, n, out)
             implicit none
-            character(len=n), intent(out) :: out
             character(len=1), intent(in)  :: c
             integer,          intent(in)  :: n
+            character(len=n), intent(out) :: out
             integer                       :: i
 
             do i = 1, n
@@ -950,7 +949,8 @@ program compiler
                         inc = "1"
                     end if
 
-                    write (uout, "(a)") "for(" // trim(id) // "=" // trim(min) // ";" //  trim(id) // "<=" // trim(max)  // "; " // trim(id) // " += " // trim(inc) // "){"
+                    write (uout, "(a)") "for(" // trim(id) // "=" // trim(min) // ";" //  trim(id) // "<=" // &
+                        trim(max)  // "; " // trim(id) // " += " // trim(inc) // "){"
 
                     in_buf = line(2:m - 1)
 
@@ -981,7 +981,8 @@ program compiler
             character(len=*), dimension(:), intent(in) :: variables, lines, dims
             integer,          dimension(:), intent(in) :: do_table, statements
             integer,                        intent(in) :: nvars, nlines, ndims
-            integer                                    :: uout = 1, stat, i, type, stmt, num_braces, nstatements, target, j, k, rep_cnt, src, width
+            integer                                    :: uout = 1, stat, i, type, stmt, num_braces, nstatements, target, &
+                                                          j, k, rep_cnt, src, width
             character(len=100)                         :: braces, spec
             character(len=6)                           :: tbuf, less, equal, greater, width_str
             character(len=max_id)                      :: id, min, max, inc, dst
@@ -1058,7 +1059,8 @@ program compiler
                         call trimw(line, line)
 
                         if (line(1:1) == " " .or. line(1:1) == ")") then
-                            fmt_buf = trim(fmt_buf) //  "NULL}; format f" // trim(tbuf) // "= {front" // trim(tbuf) // trim(back_str) // "};"
+                            fmt_buf = trim(fmt_buf) //  "NULL}; format f" // trim(tbuf) // "= {front" // trim(tbuf) // &
+                                trim(back_str) // "};"
                             exit
                         else if (line(1:1) == "(") then
                             fmt_buf = trim(fmt_buf) // "NULL}; char* back" // trim(tbuf) // "[] = {"
@@ -1121,7 +1123,7 @@ program compiler
                         end if
                     end do
 
-                    write (uout, "(a)"), trim(fmt_buf)
+                    write (uout, "(a)") trim(fmt_buf)
                 end if
             end do
 
@@ -1139,7 +1141,8 @@ program compiler
 
                 if (type == stmt_do) then
                     call parse_do(lines(i), target, id, min, max, inc)
-                    write (uout, "(13a)") "for(", trim(id), "=", trim(min), ";", trim(id), "<=", trim(max), ";", trim(id), "+=", trim(inc), "){"
+                    write (uout, "(13a)") "for(", trim(id), "=", trim(min), ";", trim(id), "<=", trim(max), ";", &
+                        trim(id), "+=", trim(inc), "){"
                 else if (type == stmt_stop) then
                     write (uout, "(a)") "exit(0);"
                 else if (type == stmt_assign) then
@@ -1339,7 +1342,7 @@ program compiler
                         write (uout, "(a)") "fmt_tmp = f" // trim(line) // ";"
                         write (uout, "(a)") "nullary_out(&f" // trim(line) // ");"
                         write (uout, "(a)") "f" // trim(line) // " = fmt_tmp;"
-                        write (uout, "(a)") 'printf("\\n");'
+                        write (uout, "(a)") 'printf("\n");'
                     else
                         line = line(k:)
 
@@ -1348,7 +1351,7 @@ program compiler
                         call gen_io(.false., tbuf, line)
 
                         write (uout, "(a)") "f" // trim(tbuf) // " = fmt_tmp;"
-                        write (uout, "(a)") 'printf("\\n");'
+                        write (uout, "(a)") 'printf("\n");'
                     end if
                 else if (type == stmt_read) then
                     line = lines(i)(index(lines(i), "READ") + 4:)

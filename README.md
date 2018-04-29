@@ -7,15 +7,18 @@ for further information. The details of the language are specified in the
 from 1956.
 
 ## Build
-Use the Makefile to build the transpiler:
+Use BSD make to build the transpiler:
 ```
 $ make
 ```
-Or run Flang directly:
+Or run GNU Fortran directly:
 ```
-$ flang -o compiler compiler.f90
+$ gfortran7 -Wl,-rpath=/usr/local/lib/gcc7/ -o compiler compiler.f90
 ```
-At the moment, GNU Fortran is not supported.
+If you prefer Flang, run:
+```
+$ flang -fno-backslash -o compiler compiler.f90
+```
 
 ## Compile
 Compile your FORTRAN I code with:
