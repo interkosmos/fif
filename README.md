@@ -30,8 +30,7 @@ For instance:
 $ ./compiler average.f average
 ```
 This outputs the translated C code to `average.c` and runs the C compiler to
-build it. You can change the used C compiler in `compiler.f90` (line 1433).
-The default is `clang`.
+build it.
 
 ## Copyright
 Copyright © 2018, Brandon Bohrer. Licenced under MIT.

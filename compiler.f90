@@ -1433,6 +1433,6 @@ program compiler
 
             !call print_lines(nlines, lines)
             call code_gen(output, nvars, vars, ndims, dims, do_table, nstatements, statements, nlines, lines)
-            call system("clang " // trim(output) // ".c runtime.c -o " // trim(output) // " -g -lm")
+            call system("cc " // trim(output) // ".c runtime.c -o " // trim(output) // " -g -lm")
         end subroutine main
 end program compiler
