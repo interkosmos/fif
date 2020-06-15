@@ -19,12 +19,6 @@ Or, run GNU Fortran directly:
 $ gfortran -o compiler compiler.f90
 ```
 
-If you prefer Flang instead, run:
-
-```
-$ flang -fno-backslash -o compiler compiler.f90
-```
-
 ## Compilation
 Compile your FORTRAN I code with:
 
@@ -36,10 +30,14 @@ For instance:
 
 ```
 $ ./compiler average.f average
+$ ./average
+3
+10.0 12.2 17.8
+ 10.000
+ 12.200
+ 17.800
+AVERAGE:  13.333
 ```
-
-This outputs the translated C code to `average.c` and then runs the C compiler
-to build it.
 
 ## Copyright
 Copyright © 2018, Brandon Bohrer. Licenced under MIT.
