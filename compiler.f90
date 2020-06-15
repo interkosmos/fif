@@ -365,10 +365,7 @@ contains
             i = i + 6
 
             do
-                if (line(i:i) .ne. ' ') then
-                    exit
-                end if
-
+                if (line(i:i) .ne. ' ') exit
                 i = i + i
             end do
 
@@ -625,10 +622,7 @@ contains
                 call start_read (buf)
 
                 do
-                    if (done_read (buf)) then
-                        exit
-                    end if
-
+                    if (done_read (buf)) exit
                     call iter_read (buf, next, is_big)
 
                     if (.not. is_big) then
@@ -742,10 +736,7 @@ contains
                 i = 2
 
                 do
-                    if (scan(in(i:i), '0123456789') .ne. 1) then
-                        exit
-                    end if
-
+                    if (scan(in(i:i), '0123456789') .ne. 1) exit
                     i = i + 1
                 end do
 
@@ -753,10 +744,7 @@ contains
                     j = i + 1
 
                     do
-                        if (scan(in(j:j), '0123456789') .ne. 1) then
-                            exit
-                        end if
-
+                        if (scan(in(j:j), '0123456789') .ne. 1) exit
                         j = j + 1
                     end do
 
@@ -768,9 +756,7 @@ contains
                 end if
             else if (scan(in(1:1), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') == 1)then
                 do j = 2, len(in)
-                    if (scan(in(j:j), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_') .ne. 1) then
-                        exit
-                    end if
+                    if (scan(in(j:j), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_') .ne. 1) exit
                 end do
 
                 if (in(j:j) .ne. '(') then
@@ -870,15 +856,11 @@ contains
         integer                   :: uout = 1, j, k, n
         do
             call trimw(line, line)
-
-            if (line == '') then
-                exit
-            end if
-
+            if (line == '') exit
             j = match_char(line, ',')
 
             if (j == 0) then
-                j= len(line) + 1
+                j = len(line) + 1
             end if
 
             in_buf = line(:j - 1)
