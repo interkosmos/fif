@@ -1,14 +1,14 @@
-FC     = gfortran7
-CFLAGS = -Wl,-rpath=/usr/local/lib/gcc7/
+FC     = gfortran
+FFLAGS =
+TARGET = compiler
 SRC    = compiler.f90
-BIN    = compiler
+
+.PHONY: clean
 
 all: compiler
 
 compiler: $(SRC)
-	$(FC) $(CFLAGS) -o $(BIN) $(SRC)
-
-.PHONY: clean
+	$(FC) $(FFLAGS) -o $(TARGET) $(SRC)
 
 clean:
-	rm $(BIN)
+	rm $(TARGET)
